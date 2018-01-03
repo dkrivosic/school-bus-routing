@@ -1,11 +1,12 @@
+package hmo.clonalg;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+
+import hmo.clonalg.utils.Point;
 
 public class ProblemInstance {
 	private int stopsCount;

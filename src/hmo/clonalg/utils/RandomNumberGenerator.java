@@ -1,3 +1,4 @@
+package hmo.clonalg.utils;
 import java.util.Random;
 
 public class RandomNumberGenerator {

@@ -1,3 +1,4 @@
+package hmo.clonalg;
 import java.util.List;
 
 public class Antigen {

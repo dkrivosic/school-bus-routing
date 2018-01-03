@@ -1,6 +1,9 @@
+package hmo.clonalg;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import hmo.clonalg.utils.RandomNumberGenerator;
 
 public class Antibody implements Comparable<Antibody> {
 	public List<List<Integer>> busRoutes;

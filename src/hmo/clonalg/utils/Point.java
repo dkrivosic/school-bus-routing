@@ -1,3 +1,4 @@
+package hmo.clonalg.utils;
 
 public class Point {
 	private double x;

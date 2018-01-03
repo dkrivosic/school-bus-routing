@@ -106,5 +106,25 @@ public class ProblemInstance {
 		
 		return availableStops;
 	}
+	
+	public int getStopsCount() {
+		return stopsCount;
+	}
+	
+	public int getStudentsCount() {
+		return studentsCount;
+	}
+	
+	public int getBusCapacity() {
+		return busCapacity;
+	}
+	
+	public double getStopsDistance(int i, int j) {
+		return this.stopDistances[i][j];
+	}
+	
+	public List<Integer> getAvailableStops(int student) {
+		return availableStops.get(student);
+	}
 }
 

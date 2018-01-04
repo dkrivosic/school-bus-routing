@@ -10,6 +10,22 @@ public class Antigen {
 	}
 	
 	public void evaluate(Antibody a) {
+		// Check bus capacity
+		int numberOfBuses = a.busRoutes.size();
+		int busCapacity = problem.getBusCapacity();
+		for (int bus = 0; bus < numberOfBuses; bus++) {
+			int passengers = 0;
+			List<Integer> route = a.busRoutes.get(bus);
+			for (int stop : route) {
+				passengers += a.stops.get(stop).size();
+			}
+			if (passengers > busCapacity) {
+				a.cost = Double.POSITIVE_INFINITY;
+				return;
+			}
+		}
+		
+		// Calculate cost
 		double cost = 0.0;
 		int school = 0;
 		

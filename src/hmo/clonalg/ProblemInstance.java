@@ -57,7 +57,7 @@ public class ProblemInstance {
 			String[] student = reader.readLine().split("\t");
 			double x = Double.parseDouble(student[1]);
 			double y = Double.parseDouble(student[2]);
-			stops.add(new Point(x, y));
+			students.add(new Point(x, y));
 		}
 		
 		reader.close();

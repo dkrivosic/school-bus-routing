@@ -50,6 +50,7 @@ public class Antibody implements Comparable<Antibody> {
 		
 		// Assign stops to busses
 		int busCapacity = problem.getBusCapacity();
+		busRoutes = new ArrayList<>();
 		List<Integer> route = new ArrayList<>();
 		int passengers = 0;
 		

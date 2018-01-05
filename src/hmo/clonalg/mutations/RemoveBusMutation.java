@@ -13,10 +13,11 @@ public class RemoveBusMutation extends IMutation {
 	private RandomNumberGenerator random;
 	private ProblemInstance problem;
 	
-	public RemoveBusMutation(double probability, RandomNumberGenerator random) {
+	public RemoveBusMutation(double probability, RandomNumberGenerator random, ProblemInstance problem) {
 		super();
 		this.probability = probability;
 		this.random = random;
+		this.problem = problem;
 	}
 
 	@Override

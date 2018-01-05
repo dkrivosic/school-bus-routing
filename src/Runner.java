@@ -10,6 +10,7 @@ import hmo.clonalg.algorithm.Clonalg;
 import hmo.clonalg.mutations.ChangeStudentStationMutation;
 import hmo.clonalg.mutations.Hypermutation;
 import hmo.clonalg.mutations.IMutation;
+import hmo.clonalg.mutations.RemoveBusMutation;
 import hmo.clonalg.utils.RandomNumberGenerator;
 
 public class Runner {
@@ -23,13 +24,14 @@ public class Runner {
 		RandomNumberGenerator random = new RandomNumberGenerator();
 		Antigen antigen = new Antigen(problem);
 		CloneOperator cloneOperator = new CloneOperator(0.5);
-		int populationSize = 20;
-		int maxIterations = 10;
+		int populationSize = 50;
+		int maxIterations = 1000;
 		int generateNew = 2;
 
 		IMutation hypermutation = new Hypermutation(
 				Stream.of(
-						new ChangeStudentStationMutation(0.1, random, problem)
+						new ChangeStudentStationMutation(0.01, random, problem),
+						new RemoveBusMutation(0.05, random, problem)
 				).collect(Collectors.toList()));
 		
 		Clonalg algorithm = new Clonalg(populationSize, maxIterations, generateNew, problem, random, antigen, cloneOperator, hypermutation);

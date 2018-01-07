@@ -2,6 +2,7 @@ package hmo.clonalg;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.StringJoiner;
 
 import hmo.clonalg.utils.RandomNumberGenerator;
 
@@ -43,7 +44,7 @@ public class Antibody implements Comparable<Antibody> {
 		
 		// Create a random permutation of stops
 		List<Integer> stopsShuffled = new ArrayList<>();
-		for (int i = 0; i < problem.getStopsCount(); i++) {
+		for (int i = 1; i < problem.getStopsCount(); i++) { // Start from 1 because stop 0 is the school
 			stopsShuffled.add(i);
 		}
 		Collections.shuffle(stopsShuffled);
@@ -54,7 +55,7 @@ public class Antibody implements Comparable<Antibody> {
 		List<Integer> route = new ArrayList<>();
 		int passengers = 0;
 		
-		for (int i = 0; i < problem.getStopsCount(); i++) {
+		for (int i = 0; i < stopsShuffled.size(); i++) {
 			int stop = stopsShuffled.get(i);
 			int studentsOnStop = stops.get(stop).size();
 			if (passengers + studentsOnStop < busCapacity) {
@@ -102,5 +103,39 @@ public class Antibody implements Comparable<Antibody> {
 			return 1;
 		}
 		return 0;
+	}
+	
+	@Override
+	public String toString() {
+		String newLine = System.getProperty("line.separator");
+		StringBuilder builder = new StringBuilder();
+		for (List<Integer> route : busRoutes) {
+			StringJoiner joiner = new StringJoiner(" ");
+			for (Integer stop : route) {
+				joiner.add(stop.toString());
+			}
+			builder.append(joiner.toString());
+			builder.append(newLine);
+		} 
+		
+		int studentsCount = 0;
+		for (List<Integer> stop : stops) {
+			studentsCount += stop.size();
+		}
+		
+		int[] studentStop = new int[studentsCount];
+		for (int stop = 0; stop < stops.size(); stop++) {
+			List<Integer> students = stops.get(stop);
+			for (int student : students) {
+				studentStop[student] = stop;
+			}
+		}
+		
+		for (int student = 0; student < studentsCount; student++) {
+			builder.append(newLine);
+			builder.append((student + 1) + " " + (studentStop[student] + 1));
+		}
+		
+		return builder.toString();
 	}
 }

@@ -12,6 +12,7 @@ import hmo.clonalg.mutations.Hypermutation;
 import hmo.clonalg.mutations.IMutation;
 import hmo.clonalg.mutations.RemoveBusMutation;
 import hmo.clonalg.utils.RandomNumberGenerator;
+import hmo.clonalg.utils.ResultFileWriter;
 
 public class Runner {
 	public static void main(String[] args) throws IOException {
@@ -21,22 +22,22 @@ public class Runner {
 		}
 
 		ProblemInstance problem = ProblemInstance.readFromFile(args[0]);
+		ResultFileWriter writer = new ResultFileWriter(args[0]);
 		RandomNumberGenerator random = new RandomNumberGenerator();
 		Antigen antigen = new Antigen(problem);
 		CloneOperator cloneOperator = new CloneOperator(0.5);
 		int populationSize = 50;
-		int maxIterations = 1000;
+		int maxIterations = 100000;
 		int generateNew = 2;
 
-		IMutation hypermutation = new Hypermutation(
-				Stream.of(
-						new ChangeStudentStationMutation(0.01, random, problem),
-						new RemoveBusMutation(0.05, random, problem)
-				).collect(Collectors.toList()));
-		
-		Clonalg algorithm = new Clonalg(populationSize, maxIterations, generateNew, problem, random, antigen, cloneOperator, hypermutation);
-		
+		IMutation hypermutation = new Hypermutation(Stream.of(new ChangeStudentStationMutation(0.01, random, problem),
+				new RemoveBusMutation(0.05, random, problem)).collect(Collectors.toList()));
+
+		Clonalg algorithm = new Clonalg(populationSize, maxIterations, generateNew, problem, random, antigen,
+				cloneOperator, hypermutation, writer);
+
 		Antibody result = algorithm.run();
 		System.out.println("Cost: " + result.cost);
+		writer.write(result, "ne");
 	}
 }

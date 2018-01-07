@@ -1,5 +1,6 @@
 package hmo.clonalg.algorithm;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,6 +11,7 @@ import hmo.clonalg.CloneOperator;
 import hmo.clonalg.ProblemInstance;
 import hmo.clonalg.mutations.IMutation;
 import hmo.clonalg.utils.RandomNumberGenerator;
+import hmo.clonalg.utils.ResultFileWriter;
 
 public class Clonalg {
 	private int populationSize;
@@ -20,9 +22,11 @@ public class Clonalg {
 	private Antigen antigen;
 	private CloneOperator cloneOperator;
 	private IMutation hypermutation;
+	private ResultFileWriter resultWriter;
 
 	public Clonalg(int populationSize, int maxIterations, int generateNew, ProblemInstance problem,
-			RandomNumberGenerator random, Antigen antigen, CloneOperator cloneOperator, IMutation hypermutation) {
+			RandomNumberGenerator random, Antigen antigen, CloneOperator cloneOperator, IMutation hypermutation,
+			ResultFileWriter resultWriter) {
 		super();
 		this.populationSize = populationSize;
 		this.maxIterations = maxIterations;
@@ -32,9 +36,14 @@ public class Clonalg {
 		this.antigen = antigen;
 		this.cloneOperator = cloneOperator;
 		this.hypermutation = hypermutation;
+		this.resultWriter = resultWriter;
 	}
 
-	public Antibody run() {
+	public Antibody run() throws IOException {
+		long startTime = System.nanoTime();
+		boolean oneMinutePassed = false;
+		boolean fiveMinutesPassed = false;
+		
 		// Initialize population
 		List<Antibody> population = new ArrayList<>();
 		for (int i = 0; i < populationSize; i++) {
@@ -64,10 +73,24 @@ public class Clonalg {
 			for (int i = 0; i < populationSize - generateNew; i++) {
 				newPopulation.add(population.get(i));
 			}
-
+			
+			long elapsedTime = System.nanoTime() - startTime;
+			if (!oneMinutePassed && elapsedTime > 60000000000L) {
+				resultWriter.write(best, "1m");
+			}
+			if (!fiveMinutesPassed && elapsedTime > 300000000000L) {
+				resultWriter.write(best, "5m");
+			}
+			
 			best = population.get(0);
 			population = newPopulation;
 		}
+		
+		long elapsedTime = System.nanoTime() - startTime;
+		int s = (int) (elapsedTime / 1e9);
+		int m = (int) (s / 60);
+		s = s - m * 60;
+		System.out.println("Total time elapsed: " + m + " minutes, " + s + " seconds");
 
 		return best;
 	}

@@ -13,8 +13,6 @@ public class ProblemInstance {
     private int studentsCount;
     private int busCapacity;
     
-    private List<Point> stops;
-    private List<Point> students;
     private double[][] stopDistances;
     private List<List<Integer>> availableStops;
     
@@ -23,8 +21,6 @@ public class ProblemInstance {
 		this.stopsCount = stopsCount;
 		this.studentsCount = studentsCount;
 		this.busCapacity = busCapacity;
-		this.stops = stops;
-		this.students = students;
 		this.stopDistances = calculateStopDistances(stops);
 		this.availableStops = calculateAvailableStops(stops, students, maximumWalk);
 	}
@@ -91,7 +87,7 @@ public class ProblemInstance {
 		
 		for (int student = 0; student < studentsCount; student++) {
 			List<Integer> availableForStudent = new ArrayList<>();
-			for (int stop = 1; stop < stopsCount; stop++) {
+			for (int stop = 1; stop < stopsCount; stop++) { // Start from 1 because stop 0 is the school
 				double x1 = students.get(student).getX();
 				double y1 = students.get(student).getY();
 				double x2 = stops.get(stop).getX();

@@ -3,10 +3,16 @@ import java.util.List;
 
 public class Antigen {
 	private ProblemInstance problem;
+	private int numberOfEvaluations;
 
 	public Antigen(ProblemInstance problem) {
 		super();
 		this.problem = problem;
+		this.numberOfEvaluations = 0; 
+	}
+	
+	public int getNumberOfEvaluations() {
+		return numberOfEvaluations;
 	}
 	
 	public void evaluate(Antibody a) {
@@ -42,6 +48,8 @@ public class Antigen {
 			cost += problem.getStopsDistance(currentStop, school);
 		}
 		a.cost = cost;
+		
+		this.numberOfEvaluations += 1;
 	}
 	
 	public void evaluate(List<Antibody> population) {

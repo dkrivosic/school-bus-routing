@@ -78,10 +78,12 @@ public class Clonalg {
 			if (!oneMinutePassed && elapsedTime > 60000000000L) {
 				resultWriter.write(best, "1m");
 				oneMinutePassed = true;
+				System.out.println("Number of evaluations after 1m: " + antigen.getNumberOfEvaluations());
 			}
 			if (!fiveMinutesPassed && elapsedTime > 300000000000L) {
 				resultWriter.write(best, "5m");
 				fiveMinutesPassed = true;
+				System.out.println("Number of evaluations after 5m: " + antigen.getNumberOfEvaluations());
 			}
 			
 			best = population.get(0);

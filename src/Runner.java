@@ -27,7 +27,7 @@ public class Runner {
 		Antigen antigen = new Antigen(problem);
 		CloneOperator cloneOperator = new CloneOperator(0.5);
 		int populationSize = 50;
-		int maxIterations = 100000;
+		int maxIterations = 100;
 		int generateNew = 2;
 
 		IMutation hypermutation = new Hypermutation(Stream.of(new ChangeStudentStationMutation(0.01, random, problem),
@@ -39,5 +39,6 @@ public class Runner {
 		Antibody result = algorithm.run();
 		System.out.println("Cost: " + result.cost);
 		writer.write(result, "ne");
+		System.out.println("Total number of evaluations: " + antigen.getNumberOfEvaluations());
 	}
 }

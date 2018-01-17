@@ -133,7 +133,7 @@ public class Antibody implements Comparable<Antibody> {
 		
 		for (int student = 0; student < studentsCount; student++) {
 			builder.append(newLine);
-			builder.append((student + 1) + " " + (studentStop[student] + 1));
+			builder.append((student + 1) + " " + (studentStop[student]));
 		}
 		
 		return builder.toString();

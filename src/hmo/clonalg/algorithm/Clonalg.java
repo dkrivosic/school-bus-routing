@@ -77,9 +77,11 @@ public class Clonalg {
 			long elapsedTime = System.nanoTime() - startTime;
 			if (!oneMinutePassed && elapsedTime > 60000000000L) {
 				resultWriter.write(best, "1m");
+				oneMinutePassed = true;
 			}
 			if (!fiveMinutesPassed && elapsedTime > 300000000000L) {
 				resultWriter.write(best, "5m");
+				fiveMinutesPassed = true;
 			}
 			
 			best = population.get(0);
@@ -92,6 +94,13 @@ public class Clonalg {
 		s = s - m * 60;
 		System.out.println("Total time elapsed: " + m + " minutes, " + s + " seconds");
 
+		if (!oneMinutePassed) {
+			resultWriter.write(best, "1m");
+		}
+		if (!fiveMinutesPassed) {
+			resultWriter.write(best, "5m");
+		}
+		
 		return best;
 	}
 

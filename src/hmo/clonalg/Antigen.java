@@ -37,6 +37,10 @@ public class Antigen {
 		
 		for (int bus = 0; bus < a.busRoutes.size(); bus++) {
 			List<Integer> route = a.busRoutes.get(bus);
+			if (route.isEmpty())
+			{
+				continue;
+			}
 			int currentStop = route.get(0);
 			cost += problem.getStopsDistance(school, currentStop);
 			int lastStop = currentStop;
